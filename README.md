@@ -14,9 +14,7 @@ For building and running the application you need:
 
 There are several ways to run a Spring Boot application on your local machine. One way is to execute the `main` method in the `com.upwork.hometask.demo.DemoApplication` class from your IDE.
 
-Alternatively you can use the [Spring Boot Maven plugin](https://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins-maven-plugin.html) like so:
-
-Open an internet editor using  hidden window call http://localhost:8080/ not https://localhost:8080/
+Open an internet editor using  hidden window, call http://localhost:8080/ not https://localhost:8080/
 
 * You can continue your transactions using the interface 
 * You can continue using swagger-ui
@@ -60,8 +58,8 @@ Req :
 {
   "allow": true,
   "specificName": "subNet",
-  "subnetDestination": "192.168.1.3/11",
-  "subnetSource": "192.168.1.2/11"
+  "subnetDestination": "165.72.83.194/19",
+  "subnetSource": "165.72.83.194/19"
 }
 Resp:
 {
