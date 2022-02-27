@@ -51,8 +51,8 @@ public class IpRuleService {
                   searchOutput.setSpecificName(ipRule.getSpecificName());
                   searchOutput.setSourceStart(ipRule.getSourceStart());
                   searchOutput.setSourceEnd(ipRule.getSourceEnd());
-                  searchOutput.setDestinationStart(ipRule.getSourceStart());
-                  searchOutput.setDestinationEnd(ipRule.getSourceEnd());
+                  searchOutput.setDestinationStart(ipRule.getDestinationStart());
+                  searchOutput.setDestinationEnd(ipRule.getDestinationEnd());
                   searchOutput.setSubnetSource(ipRule.getSubnetSource());
                   searchOutput.setSubnetDestination(ipRule.getSubnetDestination());
                   searchOutput.setAllow(ipRule.getAllow());
