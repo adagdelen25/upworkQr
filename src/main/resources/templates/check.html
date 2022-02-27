@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>Ip Pair Check</title>
+</head>
+<body>
+<div align="center">
+    <h1>Ip Pair Check </h1>
+    <br />
+    <form action="#" th:action="@{/checkPair}" th:object="${insertInput}"
+          method="post">
+
+        <table border="0" cellpadding="10">
+            <tr>
+                <td>Source Ip:</td>
+                <td><input type="text" th:field="*{source}" /></td>
+            </tr>
+            <tr>
+                <td>Destination Ip:</td>
+                <td><input type="text" th:field="*{destination}" /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button type="submit">Check</button> </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

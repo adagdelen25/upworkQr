@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Ip Rule Manager</title>
+</head>
+<body>
+<div align="center">
+    <h1>Ip Range List</h1>
+    <a href="/create">Create Ip Range</a>
+    <br/><br/>
+    <a href="/createSubnet">Create Ip Subnet</a>
+    <br/><br/>
+    <a href="/check">Check Ip Pairs</a>
+    <br/><br/>
+    <table border="1" cellpadding="10">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Allow/Delay</th>
+            <th>Is Subnet</th>
+            <th>Specific Name</th>
+            <th>Source Start</th>
+            <th>Source End</th>
+            <th>Destination Start</th>
+            <th>Destination End</th>
+            <th>Source Subnet</th>
+            <th>Destination Subnet</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="iprule : ${search.data}">
+            <td th:text="${iprule.id}"></td>
+            <td>
+                <input type="checkbox" name="my-checkbox" th:checked="${iprule.allow} ? 'checked'" th:disabled="true">
+            </td>
+            <td>
+                <input type="checkbox" name="my-checkbox" th:checked="${iprule.isSubnet} ? 'checked'" th:disabled="true">
+            </td>
+            <td th:text="${iprule.specificName}"></td>
+            <td th:text="${iprule.sourceStart}"></td>
+            <td th:text="${iprule.sourceEnd}"></td>
+            <td th:text="${iprule.destinationStart}"></td>
+            <td th:text="${iprule.destinationEnd}"></td>
+            <td th:text="${iprule.subnetSource}"></td>
+            <td th:text="${iprule.subnetDestination}"></td>
+            <td>
+                <a th:href="'/delete/' + ${iprule.id}" data-th-method="DELETE">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
