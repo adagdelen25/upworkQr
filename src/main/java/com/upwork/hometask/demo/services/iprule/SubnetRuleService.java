@@ -4,6 +4,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import java.net.UnknownHostException;
 import java.time.OffsetDateTime;
+import java.util.Arrays;
 import com.upwork.hometask.demo.domain.IpRule;
 import com.upwork.hometask.demo.exception.BadRequestException;
 import com.upwork.hometask.demo.models.dto.IdOutput;
@@ -23,6 +24,7 @@ public class SubnetRuleService {
 
   private final IpRuleRepository ipRuleRepository;
   private final IpRuleCheckService ipRuleCheckService;
+  private final IpRuleServiceValidation ipRuleServiceValidation;
 
   public IdOutput create(HttpServletRequest request, InsertSubnetInput input) {
     IpRule ipRule = new IpRule();
@@ -35,13 +37,17 @@ public class SubnetRuleService {
       ipRule.setSubnetSource(input.getSubnetSource());
       ipRule.setSourceStartValue(IpUtil.ipToLong(sourceIps[0]));
       ipRule.setSourceEndValue(IpUtil.ipToLong(sourceIps[1]));
+
+      String[] destinationIps = getIps(input.getSubnetDestination());
       ipRule.setSubnetDestination(input.getSubnetDestination());
-      String[] destinationIps = getIps(input.getSubnetSource());
       ipRule.setDestinationStartValue(IpUtil.ipToLong(destinationIps[0]));
       ipRule.setDestinationEndValue(IpUtil.ipToLong(destinationIps[1]));
 
       ipRule.setCreatedAt(OffsetDateTime.now());
       ipRule.setCreatedBy("TestUser");
+
+      ipRuleServiceValidation.validation(ipRule);
+
       ipRuleRepository.save(ipRule);
       ipRuleCheckService.addRule(ipRule);
 
@@ -72,7 +78,7 @@ public class SubnetRuleService {
       ipRule.setSourceStartValue(IpUtil.ipToLong(sourceIps[0]));
       ipRule.setSourceEndValue(IpUtil.ipToLong(sourceIps[1]));
 
-      String[] destinationIps = getIps(input.getSubnetSource());
+      String[] destinationIps = getIps(input.getSubnetDestination());
       ipRule.setDestinationStartValue(IpUtil.ipToLong(destinationIps[0]));
       ipRule.setDestinationEndValue(IpUtil.ipToLong(destinationIps[1]));
 
@@ -140,6 +146,11 @@ public class SubnetRuleService {
       a += binaryNum[j];
     }
     return a;
+  }
+
+  public static void main(String[] args) {
+    System.out.println(Arrays.toString(getIps("192.168.10.1/20")));
+    System.out.println(Arrays.toString(getIps("192.168.10.1/10")));
   }
 
 

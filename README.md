@@ -154,4 +154,4 @@ Resp :
 
 ## Copyright
 
-Released under the Apache License 2.0. See the [LICENSE](https://github.com/codecentric/springboot-sample-app/blob/master/LICENSE) file.
+Written By Abdurrehim Dağdelen Git Hub Address: https://github.com/adagdelen25/upwork

@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.UnknownHostException;
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import com.upwork.hometask.demo.domain.IpRule;
 import com.upwork.hometask.demo.exception.BadRequestException;
@@ -30,6 +31,7 @@ public class IpRuleService {
 
   private final IpRuleRepository ipRuleRepository;
   private final IpRuleCheckService ipRuleCheckService;
+  private final IpRuleServiceValidation ipRuleServiceValidation;
 
   public SearchOutput search(SearchInput input) {
     Pageable pageable = PageUtils.getPageable(input);
@@ -63,6 +65,7 @@ public class IpRuleService {
   }
 
   public IdOutput create(HttpServletRequest request, InsertInput input) {
+
     IpRule ipRule = new IpRule();
     try {
       ipRule.setSpecificName(input.getSpecificName());
@@ -80,41 +83,18 @@ public class IpRuleService {
 
       ipRule.setCreatedAt(OffsetDateTime.now());
       ipRule.setCreatedBy("TestUser");
+
+      ipRuleServiceValidation.validation(ipRule);
+
       ipRuleRepository.save(ipRule);
       ipRuleCheckService.addRule(ipRule);
       log.info("An ip rule create SS: {} - SE:{}- DS:{} - DE:{}- A/D : {} "
-          ,ipRule.getSourceStart(),
+          , ipRule.getSourceStart(),
           ipRule.getSourceEnd(),
           ipRule.getDestinationStart(),
           ipRule.getDestinationEnd(),
           ipRule.getAllow()
       );
-    } catch (UnknownHostException e) {
-      throw new BadRequestException(e.getMessage());
-    }
-    return new IdOutput(ipRule.getId());
-  }
-
-  public IdOutput createSubnet(HttpServletRequest request, InsertInput input) {
-    IpRule ipRule = new IpRule();
-    try {
-      ipRule.setSpecificName(input.getSpecificName());
-      ipRule.setAllow(input.getAllow());
-
-      ipRule.setSourceStart(input.getSourceStart());
-      ipRule.setSourceEnd(input.getSourceEnd());
-      ipRule.setSourceStartValue(IpUtil.ipToLong(input.getSourceStart()));
-      ipRule.setSourceEndValue(IpUtil.ipToLong(input.getSourceEnd()));
-
-      ipRule.setDestinationStart(input.getDestinationStart());
-      ipRule.setDestinationEnd(input.getDestinationEnd());
-      ipRule.setDestinationStartValue(IpUtil.ipToLong(input.getDestinationStart()));
-      ipRule.setDestinationEndValue(IpUtil.ipToLong(input.getDestinationEnd()));
-
-      ipRule.setCreatedAt(OffsetDateTime.now());
-      ipRule.setCreatedBy("TestUser");
-      ipRuleRepository.save(ipRule);
-      ipRuleCheckService.addRule(ipRule);
     } catch (UnknownHostException e) {
       throw new BadRequestException(e.getMessage());
     }
@@ -142,15 +122,6 @@ public class IpRuleService {
       ipRule.setModifiedAt(OffsetDateTime.now());
       ipRule.setModifiedBy("TestUser");
 
-      List<IpRule> existingRules =
-          ipRuleRepository
-              .findAllBySourceStartValueAndSourceStartValueAndDestinationStartValueAndDestinationEndValueAndAllow(
-                  ipRule.getSourceStartValue(),
-                  ipRule.getSourceEndValue(),
-                  ipRule.getDestinationStartValue(),
-                  ipRule.getDestinationEndValue(),
-                  ipRule.getAllow()
-              );
       ipRuleRepository.save(ipRule);
       ipRuleCheckService.updateRule(ipRule);
     } catch (UnknownHostException e) {
@@ -178,4 +149,5 @@ public class IpRuleService {
 
     ipRuleCheckService.removeRule(ipRule);
   }
+
 }
