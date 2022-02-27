@@ -35,11 +35,15 @@ public class SubnetRuleService {
 
       String[] sourceIps = getIps(input.getSubnetSource());
       ipRule.setSubnetSource(input.getSubnetSource());
+      ipRule.setSourceStart(sourceIps[0]);
+      ipRule.setSourceEnd(sourceIps[1]);
       ipRule.setSourceStartValue(IpUtil.ipToLong(sourceIps[0]));
       ipRule.setSourceEndValue(IpUtil.ipToLong(sourceIps[1]));
 
       String[] destinationIps = getIps(input.getSubnetDestination());
       ipRule.setSubnetDestination(input.getSubnetDestination());
+      ipRule.setDestinationStart(destinationIps[0]);
+      ipRule.setDestinationEnd(destinationIps[1]);
       ipRule.setDestinationStartValue(IpUtil.ipToLong(destinationIps[0]));
       ipRule.setDestinationEndValue(IpUtil.ipToLong(destinationIps[1]));
 

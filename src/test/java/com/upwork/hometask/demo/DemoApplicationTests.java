@@ -83,10 +83,8 @@ class DemoApplicationTests {
   public static void main(String[] args) {
     try {
       System.out.println("192.200.0.0 : " + IpUtil.ipToLong("192.200.0.0"));
-      System.out.println("192.200.0.0 : " + IpUtil.ipToLong("192.200.0.0"));
       System.out.println("192.255.0.0 : " + IpUtil.ipToLong("192.255.0.0"));
-      System.out.println("192.200.0.0 : " + IpUtil.ipToLong("192.200.0.0"));
-      System.out.println("165.72.64.1 : " + IpUtil.ipToLong("165.72.64.21"));
+      System.out.println("165.72.64.1 : " + IpUtil.ipToLong("165.72.64.1"));
       System.out.println("165.72.95.254 : " + IpUtil.ipToLong("165.72.95.254"));
     } catch (UnknownHostException e) {
       e.printStackTrace();
@@ -117,9 +115,22 @@ class DemoApplicationTests {
     Assertions.assertEquals(ipRule.getDestinationStart(), "192.200.0.0");
     Assertions.assertEquals(ipRule.getDestinationEnd(), "192.255.0.0");
     Assertions.assertEquals(ipRule.getSourceStartValue(), 3234332672L);
-    Assertions.assertEquals(ipRule.getSourceEndValue(), 3234332672L);
+    Assertions.assertEquals(ipRule.getSourceEndValue(), 3237937152L);
     Assertions.assertEquals(ipRule.getDestinationStartValue(), 3234332672L);
-    Assertions.assertEquals(ipRule.getDestinationEndValue(), 3234332672L);
+    Assertions.assertEquals(ipRule.getDestinationEndValue(), 3237937152L);
+
+    Assertions.assertThrows(BadRequestException.class, () -> {
+      ipRuleController.create(null,insertInput);
+    });
+    Assertions.assertThrows(BadRequestException.class, () -> {
+      insertInput.setSpecificName("Test2");
+      ipRuleController.create(null,insertInput);
+    });
+    Assertions.assertThrows(BadRequestException.class, () -> {
+      insertInput.setSpecificName("Test2");
+      ipRuleController.create(null,insertInput);
+    });
+
 
   }
 
@@ -144,9 +155,13 @@ class DemoApplicationTests {
     Assertions.assertEquals(ipRule.getIsSubnet(), true);
     Assertions.assertEquals(ipRule.getSubnetSource(), "165.72.83.194/19");
     Assertions.assertEquals(ipRule.getSubnetDestination(), "165.72.83.194/19");
-    Assertions.assertEquals(ipRule.getSourceStartValue(), 2772975637L);
+    Assertions.assertEquals(ipRule.getSourceStart(), "165.72.64.1");
+    Assertions.assertEquals(ipRule.getSourceEnd(), "165.72.95.254");
+    Assertions.assertEquals(ipRule.getDestinationStart(), "165.72.64.1");
+    Assertions.assertEquals(ipRule.getDestinationEnd(), "165.72.95.254");
+    Assertions.assertEquals(ipRule.getSourceStartValue(), 2772975617L);
     Assertions.assertEquals(ipRule.getSourceEndValue(), 2772983806L);
-    Assertions.assertEquals(ipRule.getDestinationStartValue(), 2772975637L);
+    Assertions.assertEquals(ipRule.getDestinationStartValue(), 2772975617L);
     Assertions.assertEquals(ipRule.getDestinationEndValue(), 2772983806L);
 
   }
@@ -170,7 +185,7 @@ class DemoApplicationTests {
 
     testDelete("/1", "");
 
-    Assertions.assertThrows(BadRequestException.class, () -> {
+    Assertions.assertThrows(RuleNotFoundException.class, () -> {
       CheckInput checkInput2 = new CheckInput();
       checkInput2.setSource("192.200.3.0");
       checkInput2.setDestination("192.200.3.0");
@@ -200,7 +215,7 @@ class DemoApplicationTests {
     VgpResponse<Boolean> check = ipRuleController.check(checkInput);
     Assertions.assertEquals(check.getBody().getData(), true);
 
-    Assertions.assertThrows(BadRequestException.class, () -> {
+    Assertions.assertThrows(RuleNotFoundException.class, () -> {
       CheckInput checkInput2 = new CheckInput();
       checkInput2.setSource("192.100.3.0");
       checkInput2.setDestination("192.150.3.0");
@@ -256,7 +271,7 @@ class DemoApplicationTests {
     });
 
     insertInput = new InsertSubnetInput();
-    insertInput.setSpecificName("Test1");
+    insertInput.setSpecificName("Test2");
     insertInput.setAllow(false);
     insertInput.setSubnetSource("165.72.83.194/19");
     insertInput.setSubnetDestination("165.72.83.194/19");
