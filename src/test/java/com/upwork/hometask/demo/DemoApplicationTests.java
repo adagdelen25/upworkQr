@@ -16,6 +16,8 @@ import com.upwork.hometask.demo.resources.iprule.IpRuleController;
 import com.upwork.hometask.demo.resources.iprule.model.CheckInput;
 import com.upwork.hometask.demo.resources.iprule.model.InsertInput;
 import com.upwork.hometask.demo.resources.iprule.model.InsertSubnetInput;
+import com.upwork.hometask.demo.resources.iprule.model.UpdateInput;
+import com.upwork.hometask.demo.resources.iprule.model.UpdateSubnetInput;
 import com.upwork.hometask.demo.utils.IpUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -82,10 +84,8 @@ class DemoApplicationTests {
 
   public static void main(String[] args) {
     try {
-      System.out.println("192.200.0.0 : " + IpUtil.ipToLong("192.200.0.0"));
-      System.out.println("192.255.0.0 : " + IpUtil.ipToLong("192.255.0.0"));
-      System.out.println("165.72.64.1 : " + IpUtil.ipToLong("165.72.64.1"));
-      System.out.println("165.72.95.254 : " + IpUtil.ipToLong("165.72.95.254"));
+      System.out.println("192.200.0.0 : " + IpUtil.ipToLong("255.255.255.255"));
+
     } catch (UnknownHostException e) {
       e.printStackTrace();
     }
@@ -164,6 +164,14 @@ class DemoApplicationTests {
     Assertions.assertEquals(ipRule.getDestinationStartValue(), 2772975617L);
     Assertions.assertEquals(ipRule.getDestinationEndValue(), 2772983806L);
 
+    UpdateSubnetInput updateInput = new UpdateSubnetInput();
+    updateInput.setSpecificName("Test1");
+    updateInput.setAllow(true);
+    updateInput.setSubnetSource("165.72.83.194/19");
+    updateInput.setSubnetDestination("165.72.83.194/19");
+
+    ipRuleController.updateSubnet(null,1L,updateInput);
+
   }
 
   @Test
@@ -182,6 +190,17 @@ class DemoApplicationTests {
         ipRuleRepository
             .findById(1L)
             .orElseThrow(() -> new EntityNotFoundException("Could not found given id: " + 1L));
+
+    UpdateInput updateInput = new UpdateInput();
+    updateInput.setSpecificName("Test1");
+    updateInput.setAllow(true);
+    updateInput.setSourceStart("192.200.0.0");
+    updateInput.setSourceEnd("192.255.0.0");
+    updateInput.setDestinationStart("192.200.0.0");
+    updateInput.setDestinationEnd("192.255.0.0");
+
+    ipRuleController.update(null,1L,updateInput);
+
 
     testDelete("/1", "");
 
@@ -236,6 +255,8 @@ class DemoApplicationTests {
     checkInput.setSource("191.200.3.0");
     checkInput.setDestination("191.200.3.0");
     check = ipRuleController.check(checkInput);
+    Assertions.assertEquals(check.getBody().getData(), false);
+    check = ipRuleController.checkCash(checkInput);
     Assertions.assertEquals(check.getBody().getData(), false);
   }
 

@@ -45,6 +45,18 @@ public class IpRuleController {
   private final SubnetRuleService subnetRuleService;
 
   @ApiOperation(value = "Ip Rule List")
+  @GetMapping("/healtchecj")
+  public OKResponse<Boolean> healtchecj
+      (SearchInput input) {
+    SearchOutput list = ipRuleService.search(input);
+    PageableResponse pageableResponse =
+        new PageableResponse<>(
+            new PageableResponse.PageableResponseData(
+                list.getData(), list.getPageNumber(), list.getPageSize(), list.getTotalCount()));
+    return pageableResponse;
+  }
+
+  @ApiOperation(value = "Ip Rule List")
   @GetMapping
   public VgpResponse<PageableResponse> search(SearchInput input) {
     SearchOutput list = ipRuleService.search(input);
@@ -103,6 +115,13 @@ public class IpRuleController {
   public VgpResponse<Boolean> check(CheckInput input) {
 //    return new OKResponse<>(ipRuleCheckService.executeFromCash(input.getSource(), input.getDestination()));
     return new OKResponse<>(ipRuleCheckService.executeFromDb(input.getSource(), input.getDestination()));
+  }
+
+  @ApiOperation(value = "Ip Rule List Check")
+  @GetMapping("/checkCash")
+  public VgpResponse<Boolean> checkCash(CheckInput input) {
+    return new OKResponse<>(ipRuleCheckService.executeFromCash(input.getSource(), input.getDestination()));
+//    return new OKResponse<>(ipRuleCheckService.executeFromDb(input.getSource(), input.getDestination()));
   }
 
 }
