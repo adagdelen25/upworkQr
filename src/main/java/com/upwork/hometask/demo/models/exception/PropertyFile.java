@@ -16,11 +16,7 @@ public enum PropertyFile {
     ERROR_MISSING_REQUEST_QUERY("error.missing-request-query"),
     ERROR_MISSING_TOKEN_HEADER("error.missing-token-header"),
     ERROR_RECORD_NOT_FOUND("error.record-not-found"),
-    ERROR_SERVER_ERROR("error.server-error"),
-    ERROR_TOKEN_HAS_EXPIRED("error.token-has-expired"),
-    ERROR_TOKEN_NOT_PRESENT("error.token-not-present"),
-    ERROR_TOKEN_NOT_VALID("error.token-not-valid"),
-    USER_NOT_ACTIVE("error.user-not-active");
+    ERROR_SERVER_ERROR("error.server-error");
 
     private final String key;
 
