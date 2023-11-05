@@ -16,7 +16,7 @@ public final class RangeMap<T extends Comparable<T>> {
 
   public boolean contains(T value,T value2) {
     Map.Entry<T, Range<T>> tRangeEntry = this.map.floorEntry(value);
-    this.map.tailMap(value,false).forEach((t, tRange) -> System.out.println(tRange));
+    this.map.tailMap(value2,true).forEach((t, tRange) -> System.out.println(tRange));
     return true;
   }
 
@@ -26,9 +26,9 @@ public final class RangeMap<T extends Comparable<T>> {
       map.add(new Range<>(2L, 2L,3L, 4L),1L);
       map.add(new Range<>(1L, 3L,3L, 4L),2L);
       map.add(new Range<>(1L, 4L,4L, 4L),3L);
-      map.add(new Range<>(4L, 4L,4L, 4L),3L);
-      map.add(new Range<>(5L, 4L,4L, 4L),3L);
-      map.add(new Range<>(0L, 4L,6L, 4L),3L);
+      map.add(new Range<>(4L, 4L,4L, 4L),4L);
+      map.add(new Range<>(5L, 4L,4L, 4L),5L);
+      map.add(new Range<>(0L, 4L,6L, 4L),6L);
     System.out.println("192.168.1.3" + ": " + map.contains(1L,3L));
 
 

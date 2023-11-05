@@ -1,7 +1,11 @@
 package com.upwork.hometask.demo.resources.iprule.model;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import com.upwork.hometask.demo.utils.PatternValidator;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
@@ -10,20 +14,20 @@ import lombok.Data;
 public class UpdateInput {
   private String specificName;
 
-  @NotNull
-  @Size(min = 1, max = 15)
+  @NotEmpty
+  @Pattern(regexp = PatternValidator.IP_PATTERN, message = PatternValidator.IP_PATTERN_MESSAGE)
   private String sourceStart;
 
-  @NotNull
-  @Size(min = 1, max = 15)
+  @NotEmpty
+  @Pattern(regexp = PatternValidator.IP_PATTERN, message = PatternValidator.IP_PATTERN_MESSAGE)
   private String sourceEnd;
 
-  @NotNull
-  @Size(min = 1, max = 15)
+  @NotEmpty
+  @Pattern(regexp = PatternValidator.IP_PATTERN, message = PatternValidator.IP_PATTERN_MESSAGE)
   private String destinationStart;
 
-  @NotNull
-  @Size(min = 1, max = 15)
+  @NotEmpty
+  @Pattern(regexp = PatternValidator.IP_PATTERN, message = PatternValidator.IP_PATTERN_MESSAGE)
   private String destinationEnd;
 
   private Boolean allow;

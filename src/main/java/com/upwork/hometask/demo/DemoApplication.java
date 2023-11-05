@@ -1,6 +1,7 @@
 package com.upwork.hometask.demo;
 
 import com.upwork.hometask.demo.services.iprule.IpRuleCheckService;
+import com.upwork.hometask.demo.services.synchronize.IpRuleSynchronizeCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,7 +14,7 @@ import org.springframework.context.event.EventListener;
 public class DemoApplication {
 
   @Autowired
-  private IpRuleCheckService ipRuleCheckService;
+  private IpRuleSynchronizeCacheService ipRuleSynchronizeCacheService;
 
   public static void main(String[] args) {
     SpringApplication.run(DemoApplication.class, args);
@@ -21,7 +22,7 @@ public class DemoApplication {
 
   @EventListener(ApplicationReadyEvent.class)
   public void init() {
-    ipRuleCheckService.refreshData();
+    ipRuleSynchronizeCacheService.refreshData();
   }
 
 }

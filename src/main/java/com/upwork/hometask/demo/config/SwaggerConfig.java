@@ -13,30 +13,30 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @Configuration
 public class SwaggerConfig {
-  @Bean
-  public Docket api() {
-    return buildDocket()
-        .select()
-        .apis(RequestHandlerSelectors.basePackage("com.upwork.hometask.demo"))
-        .paths(PathSelectors.any())
-        .build()
-        .apiInfo(apiEndPointsInfo())
-        .forCodeGeneration(true);
-  }
+    @Bean
+    public Docket api() {
+        return buildDocket()
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.upwork.hometask.demo"))
+                .paths(PathSelectors.any())
+                .build()
+                .apiInfo(apiEndPointsInfo())
+                .forCodeGeneration(true);
+    }
 
-  private Docket buildDocket() {
-    Docket docket = null;
-      docket = new Docket(DocumentationType.SWAGGER_2);
+    private Docket buildDocket() {
+        Docket docket = null;
+        docket = new Docket(DocumentationType.SWAGGER_2);
 
-    return docket;
-  }
+        return docket;
+    }
 
-  private ApiInfo apiEndPointsInfo() {
-    return new ApiInfoBuilder()
-        .title("VGP Billings Backend Service")
-        .description("VGP Markets Backend Service")
-        .version("1.0.0")
-        .build();
-  }
+    private ApiInfo apiEndPointsInfo() {
+        return new ApiInfoBuilder()
+                .title("Upwork Ip Filter Service")
+                .description("Upwork Ip Filter Service")
+                .version("1.0.0")
+                .build();
+    }
 
 }

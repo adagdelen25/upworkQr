@@ -92,6 +92,15 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>32.1.2-jre</version>
+        </dependency>
+
+
+
     </dependencies>
 
     <build>
@@ -129,9 +138,13 @@
                         <exclude>**/com/upwork/hometask/demo/rangetree/**/*.class</exclude>
                         <exclude>**/com/upwork/hometask/demo/models/**/*.class</exclude>
                         <exclude>**/com/upwork/hometask/demo/model/**/*.class</exclude>
-                        <exclude>**/com/upwork/hometask/demo/**/model/*.class</exclude>
+                        <excluden>**/com/upwork/hometask/demo/**/model/*.class</excluden>
                         <exclude>**/com/upwork/hometask/demo/resources/ApiResponseEntityExceptionHandler.class</exclude>
                         <exclude>**/com/upwork/hometask/demo/DemoApplicationTests.class</exclude>
+                        <exclude>**/com/upwork/hometask/demo/worktry/*.class</exclude>
+                        <exclude>**/com/upwork/hometask/demo/cache/*.class</exclude>
+                        <exclude>**/com/upwork/hometask/demo/resources/fronted/*.class</exclude>
+                        <exclude>**/com/upwork/hometask/demo/resources/HealthCheckController.class</exclude>
                     </excludes>
                 </configuration>
             </plugin>

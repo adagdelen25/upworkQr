@@ -21,6 +21,5 @@ public interface IpRuleRepository extends JpaRepository<IpRule, Long>, JpaSpecif
           "(:ipFrom between c.sourceStartValue and c.sourceEndValue) " +
           "and (:ipTo between c.destinationStartValue and c.destinationEndValue)")
   List<IpRule> listAvailableIpRule(@Param("ipFrom") Long ipFrom,@Param("ipTo") Long ipTo);
-
-  List<IpRule> findAllBySourceStartValueAndSourceEndValueAndDestinationStartValueAndDestinationEndValueAndAllow(Long a1,Long a2, Long a3, Long a4,Boolean allow );
+  List<IpRule> findAllBySourceStartValueAndSourceEndValueAndDestinationStartValueAndDestinationEndValueAndAllow(Long sourceStartValue,Long sourceEndValue,Long destinationStartValue,Long destinationEndValue,Boolean allow );
 }

@@ -182,11 +182,11 @@ find_maven_basedir() {
       basedir=$wdir
       break
     fi
-    # workaround for JBEAP-8937 (on Solaris 10/Sparc)
+    # worktry for JBEAP-8937 (on Solaris 10/Sparc)
     if [ -d "${wdir}" ]; then
       wdir=`cd "$wdir/.."; pwd`
     fi
-    # end of workaround
+    # end of worktry
   done
   echo "${basedir}"
 }

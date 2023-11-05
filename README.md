@@ -14,7 +14,16 @@ For building and running the application you need:
 
 There are several ways to run a Spring Boot application on your local machine. One way is to execute the `main` method in the `com.upwork.hometask.demo.DemoApplication` class from your IDE.
 
-Open an internet editor using  hidden window, call http://localhost:8080/ not https://localhost:8080/
+Open an internet editor using  hidden window, call 
+```shell
+http://localhost:8080/ not https://localhost:8080/
+```
+
+
+* You can check test coverage percentage
+```shell
+target/site/jacoco/index.html
+```
 
 * You can continue your transactions using the interface 
 * You can continue using swagger-ui
