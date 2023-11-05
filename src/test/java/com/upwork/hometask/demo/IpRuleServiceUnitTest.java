@@ -94,7 +94,7 @@ public class IpRuleServiceUnitTest {
     }
 
 
-    @DisplayName("JUnit test for saveEmployee method which throws exception")
+    @DisplayName("JUnit test for saveIpRule method which throws exception")
     @Test
     public void givenIpRuleObject_whenSaveIpRule_thenThrowsException() {
 
