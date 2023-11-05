@@ -88,7 +88,7 @@ public class IpRuleRepositoryUnitTest {
         Assertions.assertEquals(result.size(), 1);
 
         result = ipRuleRepository.findAllBySourceStartValueAndSourceEndValueAndDestinationStartValueAndDestinationEndValueAndAllow(
-                sourceStartValue, sourceEndValue, destinationStartValue, destinationEndValue, null);
+                sourceStartValue, sourceEndValue, destinationStartValue, destinationEndValue, false);
 
         Assertions.assertNotNull(result);
         Assertions.assertEquals(result.size(), 0);
