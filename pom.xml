@@ -145,6 +145,7 @@
                         <exclude>**/com/upwork/hometask/demo/cache/*.class</exclude>
                         <exclude>**/com/upwork/hometask/demo/resources/fronted/*.class</exclude>
                         <exclude>**/com/upwork/hometask/demo/resources/HealthCheckController.class</exclude>
+                        <exclude>**/com/upwork/hometask/demo/resources/IpRuleSynchronizeController.class</exclude>
                     </excludes>
                 </configuration>
             </plugin>
