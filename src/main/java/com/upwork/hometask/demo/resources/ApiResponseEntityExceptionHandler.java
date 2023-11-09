@@ -100,16 +100,6 @@ public class ApiResponseEntityExceptionHandler extends ResponseEntityExceptionHa
         return getResponse(HttpStatus.BAD_REQUEST, errorMessage);
     }
 
-    @ExceptionHandler(DuplicateKeyException.class)
-    public ResponseEntity<ErrorMessage> handleDataIntegrityViolationException(DuplicateKeyException ex, WebRequest request) {
-        log.error("ResponseEntityExceptionHandler.DuplicateKeyException: {}", ex.getMessage());
-        var errorMessage = ErrorMessage.builder()
-                .code(serviceName.toUpperCase() + "_" + ENTITY_DUPLICATED)
-                .message(ex.getMessage())
-                .build();
-        return getResponse(HttpStatus.CONFLICT, errorMessage);
-    }
-
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<ErrorMessage> handleValidationException(ValidationException ex, WebRequest request) {
         log.error("ResponseEntityExceptionHandler.handleValidationException: {}", ex.getMessage());
@@ -180,6 +170,7 @@ public class ApiResponseEntityExceptionHandler extends ResponseEntityExceptionHa
                 .build();
         return getResponse(HttpStatus.BAD_REQUEST, errorMessage);
     }
+
     @ExceptionHandler(InvalidITokenException.class)
     public ResponseEntity<ErrorMessage> handleInvalidITokenException(InvalidITokenException ex, WebRequest request) {
         log.error("ResponseEntityExceptionHandler.InvalidITokenException: {}", ex.getMessage());
@@ -199,6 +190,7 @@ public class ApiResponseEntityExceptionHandler extends ResponseEntityExceptionHa
                 .build();
         return getResponse(HttpStatus.BAD_REQUEST, errorMessage);
     }
+
     @ExceptionHandler(DistanceException.class)
     public ResponseEntity<ErrorMessage> handleDistanceException(DistanceException ex, WebRequest request) {
         log.error("ResponseEntityExceptionHandler.DistanceException: {}", ex.getMessage());

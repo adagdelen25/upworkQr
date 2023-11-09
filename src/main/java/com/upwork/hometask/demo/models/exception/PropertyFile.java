@@ -2,11 +2,8 @@ package com.upwork.hometask.demo.models.exception;
 
 public enum PropertyFile {
     ERROR_ACCESS_DENIED("error.access-denied"),
-    ERROR_AUTHENTICATION_FAILURE("error.authentication-failure"),
     ERROR_BAD_CREDENTIALS("error.bad-credentials"),
     ERROR_ENTITY_NOT_FOUND("error.entity-not-found"),
-    ERROR_INSUFFICIENT_AUTHENTICATION("error.insufficient-authentication"),
-    ERROR_AUTHENTICATION_CREDENTIALS_NOT_FOUND("error.authentication-credentials-not-found"),
     ERROR_MESSAGE_NOT_READABLE("error.message-not-readable"),
     ERROR_METHOD_ARGUMENT_NOT_VALID("error.method-argument-not-valid"),
     ERROR_METHOD_ARGUMENT_TYPE_MISMATCH("error.method-argument-type-mismatch"),
