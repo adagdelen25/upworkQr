@@ -190,6 +190,25 @@ public class ApiResponseEntityExceptionHandler extends ResponseEntityExceptionHa
         return getResponse(HttpStatus.BAD_REQUEST, errorMessage);
     }
 
+    @ExceptionHandler(VerificationCodeException.class)
+    public ResponseEntity<ErrorMessage> handleVerificationCodeException(VerificationCodeException ex, WebRequest request) {
+        log.error("ResponseEntityExceptionHandler.VerificationCodeException: {}", ex.getMessage());
+        var errorMessage = ErrorMessage.builder()
+                .code("VERIFICATIONCODE")
+                .message(ex.getMessage())
+                .build();
+        return getResponse(HttpStatus.BAD_REQUEST, errorMessage);
+    }
+    @ExceptionHandler(DistanceException.class)
+    public ResponseEntity<ErrorMessage> handleDistanceException(DistanceException ex, WebRequest request) {
+        log.error("ResponseEntityExceptionHandler.DistanceException: {}", ex.getMessage());
+        var errorMessage = ErrorMessage.builder()
+                .code("DISTANCE")
+                .message(ex.getMessage())
+                .build();
+        return getResponse(HttpStatus.BAD_REQUEST, errorMessage);
+    }
+
     @ExceptionHandler(EncryptException.class)
     public ResponseEntity<ErrorMessage> handleInvalidITokenException(EncryptException ex, WebRequest request) {
         log.error("ResponseEntityExceptionHandler.EncryptException: {}", ex.getMessage());

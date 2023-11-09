@@ -5,14 +5,11 @@ import com.upwork.hometask.demo.domain.Classroom;
 import com.upwork.hometask.demo.domain.Schedule;
 import com.upwork.hometask.demo.domain.Student;
 import com.upwork.hometask.demo.models.enums.AttendanceTransactionStatus;
-import com.upwork.hometask.demo.models.exception.AlreadyExistsException;
-import com.upwork.hometask.demo.models.exception.InvalidITokenException;
-import com.upwork.hometask.demo.models.exception.TimeExpiredTokenException;
+import com.upwork.hometask.demo.models.exception.*;
 import com.upwork.hometask.demo.repository.qrCode.AttendanceTransactionRepository;
 import com.upwork.hometask.demo.repository.qrCode.ScheduleRepository;
 import com.upwork.hometask.demo.repository.qrCode.StudentRepository;
 import com.upwork.hometask.demo.resources.qrcode.model.CheckInInput;
-import com.upwork.hometask.demo.utils.MapUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,12 +29,9 @@ public class CheckInService {
     private final StudentRepository studentRepository;
     private final EncryptService encryptService;
 
+    private final DistanceService distanceService;
 
     private static final int INTERVAL_TIME = 30;
-
-    private static final double MAX_DISTANCE_IN_METER = 10D;
-
-    private static final boolean CHECK_DISTANCE = false;
 
     public void checkIn(CheckInInput input) {
 
@@ -53,7 +47,7 @@ public class CheckInService {
         }
 
         if (!Objects.equals(attendanceTransaction.getVerificationCode(), input.getVerificationCode())) {
-            throw new InvalidITokenException();
+            throw new VerificationCodeException();
         }
 
         Schedule schedule = scheduleRepository.findById(scheduleId).orElseThrow(() -> new EntityNotFoundException("Could not found given id: " + scheduleId + " in Schedule"));
@@ -63,12 +57,12 @@ public class CheckInService {
         /*
         If it is mandatory to open map information in the mobile application, QRcode image fraud can be prevented by obtaining coordinate information and calculating the distance between them.
          */
-        if (CHECK_DISTANCE) {
-            double m = MapUtils.distance(classroom.getLatitude(), classroom.getLongitude(), input.getLatitude(), input.getLongitude(), "M");
-            if (m > MAX_DISTANCE_IN_METER) {
-                log.error("{} - {} Trying to scan tokens from a remote location",studentId,scheduleId);
-                throw new InvalidITokenException();
-            }
+
+        boolean okDistance = distanceService.okDistance(classroom.getLatitude(), classroom.getLongitude(), input.getLatitude(), input.getLongitude());
+
+        if (!okDistance) {
+            log.error("{} - {} Trying to scan tokens from a remote location", studentId, scheduleId);
+            throw new DistanceException();
         }
 
         Student student = studentRepository.findById(studentId).orElseThrow(() -> new EntityNotFoundException("Could not found given id: " + studentId + " in Student"));
@@ -102,5 +96,10 @@ public class CheckInService {
 
         log.info("studentId : {} is successfully checkin schedule {}", studentId, scheduleId);
     }
+
+    public static boolean checkDistance() {
+        return false;
+    }
+
 
 }

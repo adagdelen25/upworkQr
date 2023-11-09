@@ -62,6 +62,8 @@ public class DemoDataService {
         List<Classroom> classrooms = new ArrayList<>();
         for (int i = 1; i < 5; i++) {
             Classroom classroom = new Classroom();
+            classroom.setLatitude(1D);
+            classroom.setLongitude(1D);
             classroom.setName("Class " + i);
             classroom.setQrCode(UUID.randomUUID().toString());
             classroomRepository.save(classroom);

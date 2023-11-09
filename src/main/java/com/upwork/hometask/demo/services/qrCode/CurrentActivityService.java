@@ -65,8 +65,6 @@ public class CurrentActivityService {
         attendanceTransaction.setVerificationCode(123456);
         attendanceTransactionRepository.save(attendanceTransaction);
         String encrypt = encryptService.encrypt(correlationID);
-        System.out.println("correlationID : "+correlationID);
-        System.out.println("encrypt : "+encrypt);
         output.setCorrelationID(encrypt);
         return output;
     }
