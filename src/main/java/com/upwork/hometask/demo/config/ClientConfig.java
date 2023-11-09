@@ -15,35 +15,35 @@ import org.springframework.web.filter.CommonsRequestLoggingFilter;
 @Configuration
 @RequiredArgsConstructor
 public class ClientConfig {
-  @Bean
-  public RestTemplate restTemplate() {
-    RestTemplate restTemplate = new RestTemplateBuilder().build();
-    //        restTemplate.getInterceptors().add(new LoggingRequestInterceptor());
-    return new RestTemplate();
-  }
+    @Bean
+    public RestTemplate restTemplate() {
+        RestTemplate restTemplate = new RestTemplateBuilder().build();
+        //        restTemplate.getInterceptors().add(new LoggingRequestInterceptor());
+        return new RestTemplate();
+    }
 
-  @Bean
-  public ObjectMapper objectMapper() {
-    ObjectMapper objectMapper = new ObjectMapper();
-    objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-    objectMapper.disable(DeserializationFeature.FAIL_ON_NUMBERS_FOR_ENUMS);
-    objectMapper.enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);
-    objectMapper.registerModule(new JavaTimeModule());
+    @Bean
+    public ObjectMapper objectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        objectMapper.disable(DeserializationFeature.FAIL_ON_NUMBERS_FOR_ENUMS);
+        objectMapper.enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING);
+        objectMapper.registerModule(new JavaTimeModule());
 
-    SimpleModule module = new SimpleModule();
-    objectMapper.registerModule(module);
+        SimpleModule module = new SimpleModule();
+        objectMapper.registerModule(module);
 
-    objectMapper.findAndRegisterModules();
-    return objectMapper;
-  }
+        objectMapper.findAndRegisterModules();
+        return objectMapper;
+    }
 
-  @Bean
-  public CommonsRequestLoggingFilter requestLoggingFilter() {
-    CommonsRequestLoggingFilter crlf = new CommonsRequestLoggingFilter();
-    crlf.setIncludeClientInfo(true);
-    crlf.setIncludeQueryString(true);
-    crlf.setIncludePayload(true);
-    return crlf;
-  }
+    @Bean
+    public CommonsRequestLoggingFilter requestLoggingFilter() {
+        CommonsRequestLoggingFilter crlf = new CommonsRequestLoggingFilter();
+        crlf.setIncludeClientInfo(true);
+        crlf.setIncludeQueryString(true);
+        crlf.setIncludePayload(true);
+        return crlf;
+    }
 
 }

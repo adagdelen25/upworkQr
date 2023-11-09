@@ -33,131 +33,51 @@ http://localhost:8080/swagger-ui/index.html
 * You can continue using postman
 
 ## Example Request and Response
-* Add Ip Rule
+* 
 ```shell
-curl -X POST "http://localhost:8080/api/iprule" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"allow\": true, \"destinationEnd\": \"192.168.2.100\", \"destinationStart\": \"192.168.2.1\", \"sourceEnd\": \"192.168.1.100\", \"sourceStart\": \"192.168.1.1\", \"specificName\": \"Test1\"}"
+curl curl -X GET "http://localhost:8080/api/qrCode/listCurrentActivity?qrCode=21b52153-7b48-470d-87bb-f22dd9bf9ed9&studentId=1" -H "accept: application/json"
 or
-Post Request URL:  http://localhost:8080/api/iprule
-Req :
-{
-  "allow": true,
-  "destinationEnd": "192.168.2.100",
-  "destinationStart": "192.168.2.1",
-  "sourceEnd": "192.168.1.100",
-  "sourceStart": "192.168.1.1",
-  "specificName": "Test1"
-}
+Get Request URL:  http://localhost:8080/api/qrCode/listCurrentActivity?qrCode=21b52153-7b48-470d-87bb-f22dd9bf9ed9&studentId=1
 Resp:
 {
-  "data": {
-    "id": 174
-  },
-  "errors": [],
-  "timestamp": 1645963853977,
-  "transactionId": null
+  "activities": [
+    {
+      "scheduleId": 5,
+      "classroom": "Class 1",
+      "lecture": "Lecture (1,22)",
+      "startTime": "2023-11-09 22:00:00",
+      "endTime": "2023-11-09 22:50:00"
+    },
+    {
+      "scheduleId": 6,
+      "classroom": "Class 1",
+      "lecture": "Lecture (1,23)",
+      "startTime": "2023-11-09 23:00:00",
+      "endTime": "2023-11-09 23:50:00"
+    }
+  ],
+  "correlationID": "b01fb40d-b30e-4e3e-9278-4f926531877d"
 }
 ```
 
-* Add Subnet Ip Rule
+* Check In
+
 ```shell
-curl -X POST "http://localhost:8080/api/iprule/subnet" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"allow\": true, \"specificName\": \"subNet\", \"subnetDestination\": \"192.168.1.3/11\", \"subnetSource\": \"192.168.1.2/11\"}"
+curl -X PUT "http://localhost:8080/api/qrCode/checkIn" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"correlationID\": \"7b223a7b-6380-4cae-918e-9d7697d74536\", \"scheduleId\": 4, \"studentId\": 1}"
 or
-Post Request URL:  http://localhost:8080/api/iprule/subnet
+Put Request URL
+http://localhost:8080/api/qrCode/checkIn
 Req :
 {
-  "allow": true,
-  "specificName": "subNet",
-  "subnetDestination": "165.72.83.194/19",
-  "subnetSource": "165.72.83.194/19"
+  "correlationID": "7b223a7b-6380-4cae-918e-9d7697d74536",
+  "scheduleId": 4,
+  "studentId": 1
 }
-Resp:
-{
-  "data": {
-    "id": 175
-  },
-  "errors": [],
-  "timestamp": 1645964519383,
-  "transactionId": null
-}
-```
-
-* Delete Ip Rule
-
-```shell
-curl -X DELETE "http://localhost:8080/api/iprule/174" -H "accept: application/json"
-or
-Delete Request URL
-http://localhost:8080/api/iprule/174
-Resp: No Content Response 204
-```
-
-* Check Ip Pairs
-
-```shell
-curl -X GET "http://localhost:8080/api/iprule/check?destination=192.168.2.10&source=192.168.1.10" -H "accept: application/json"
-or
-Get Request URL
-http://localhost:8080/api/iprule/check?destination=192.168.2.10&source=192.168.1.10
 Resp :
 {
-  "data": true,
-  "errors": [],
-  "timestamp": 1645964608117,
-  "transactionId": null
-}
-```
-* List Ip Rules
 
-```shell
-curl -X GET "http://localhost:8080/api/iprule" -H "accept: application/json"
-or
-Get Request URL
-http://localhost:8080/api/iprule
-Resp :
-{
-  "data": {
-    "data": [
-      {
-        "id": 138,
-        "specificName": "test1232",
-        "sourceStart": "192.200.0.0",
-        "sourceStartValue": null,
-        "sourceEnd": "192.200.0.0",
-        "sourceEndValue": null,
-        "destinationStart": "192.200.0.0",
-        "destinationStartValue": null,
-        "destinationEnd": "192.200.0.0",
-        "destinationEndValue": null,
-        "allow": true,
-        "isSubnet": false,
-        "subnetSource": null,
-        "subnetDestination": null
-      },
-      {
-        "id": 175,
-        "specificName": "subNet",
-        "sourceStart": null,
-        "sourceStartValue": null,
-        "sourceEnd": null,
-        "sourceEndValue": null,
-        "destinationStart": null,
-        "destinationStartValue": null,
-        "destinationEnd": null,
-        "destinationEndValue": null,
-        "allow": true,
-        "isSubnet": true,
-        "subnetSource": "192.168.1.2/11",
-        "subnetDestination": "192.168.1.3/11"
-      }
-    ],
-    "pageNumber": 0,
-    "pageSize": 1,
-    "totalCount": 2
-  },
-  "errors": [],
-  "timestamp": 1645964704180,
-  "transactionId": null
 }
+
 
 ## Copyright
 

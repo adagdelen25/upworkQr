@@ -1,5 +1,6 @@
 package com.upwork.hometask.demo.domain;
 
+import com.upwork.hometask.demo.domain.audit.AuditListener;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -17,18 +18,18 @@ import java.time.OffsetDateTime;
 
 @Data
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners(AuditListener.class)
 public class AuditDetails implements Serializable {
 
     @CreatedDate
     @Column(nullable = false)
     @NotNull(message = "Created at field is required")
-    private OffsetDateTime createdAt;
+    private OffsetDateTime createdAt = OffsetDateTime.now();
 
     @CreatedBy
     @Column(nullable = false)
     @NotBlank(message = "Created by field is required")
-    private String createdBy;
+    private String createdBy = "SYSTEM";
 
     @LastModifiedDate
     private OffsetDateTime modifiedAt;

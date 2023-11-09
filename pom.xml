@@ -12,7 +12,7 @@
     <artifactId>demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>demo</name>
-    <description>UpWork IP Filter Service</description>
+    <description>UpWork QR Schedule</description>
     <properties>
         <java.version>11</java.version>
     </properties>
@@ -135,17 +135,13 @@
                         <exclude>**/com/upwork/hometask/demo/exception/**/*.class</exclude>
                         <exclude>**/com/upwork/hometask/demo/utils/**/*.class</exclude>
                         <exclude>**/com/upwork/hometask/demo/domain/**/*.class</exclude>
-                        <exclude>**/com/upwork/hometask/demo/rangetree/**/*.class</exclude>
                         <exclude>**/com/upwork/hometask/demo/models/**/*.class</exclude>
                         <exclude>**/com/upwork/hometask/demo/model/**/*.class</exclude>
                         <excluden>**/com/upwork/hometask/demo/**/model/*.class</excluden>
                         <exclude>**/com/upwork/hometask/demo/resources/ApiResponseEntityExceptionHandler.class</exclude>
                         <exclude>**/com/upwork/hometask/demo/DemoApplicationTests.class</exclude>
-                        <exclude>**/com/upwork/hometask/demo/worktry/*.class</exclude>
-                        <exclude>**/com/upwork/hometask/demo/cache/*.class</exclude>
                         <exclude>**/com/upwork/hometask/demo/resources/fronted/*.class</exclude>
                         <exclude>**/com/upwork/hometask/demo/resources/HealthCheckController.class</exclude>
-                        <exclude>**/com/upwork/hometask/demo/resources/IpRuleSynchronizeController.class</exclude>
                     </excludes>
                 </configuration>
             </plugin>

@@ -33,8 +33,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiEndPointsInfo() {
         return new ApiInfoBuilder()
-                .title("Upwork Ip Filter Service")
-                .description("Upwork Ip Filter Service")
+                .title("UpWork QR Schedule Service")
+                .description("UpWork QR Schedule Service")
                 .version("1.0.0")
                 .build();
     }

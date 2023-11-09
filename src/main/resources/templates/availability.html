@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Schedule Manager</title>
+</head>
+<body>
+<div align="center">
+    <h1>Available Activity List</h1>
+    <table border="1" cellpadding="10">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Lecture</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="activitiy: ${search.activities}">
+            <td th:text="${activitiy.scheduleId}"></td>
+            <td th:text="${activitiy.lecture}"></td>
+            <td th:text="${activitiy.startTime}"></td>
+            <td th:text="${activitiy.endTime}"></td>
+            <td>
+                <a th:href="'/checkIn?studentId=1&verificationCode=123456&scheduleId='+ ${activitiy.scheduleId}+'&correlationID='+ ${search.correlationID}" data-th-method="GET">CheckIn</a>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+</body>
+</html>

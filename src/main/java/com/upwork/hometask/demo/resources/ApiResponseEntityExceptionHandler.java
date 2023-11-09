@@ -4,8 +4,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.upwork.hometask.demo.models.exception.*;
-import com.upwork.hometask.demo.models.exception.ErrorMessage;
-import com.upwork.hometask.demo.models.exception.PropertyFile;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -17,7 +15,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.MissingRequestHeaderException;
@@ -30,10 +27,8 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.OK;
@@ -91,6 +86,7 @@ public class ApiResponseEntityExceptionHandler extends ResponseEntityExceptionHa
 
         return getResponse(HttpStatus.BAD_REQUEST, errorMessage);
     }
+
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ErrorMessage> handleEntityNotFoundException(EntityNotFoundException ex, WebRequest request) {
         log.error("ResponseEntityExceptionHandler.handleEntityNotFoundException: {}", ex.getMessage());
@@ -139,17 +135,6 @@ public class ApiResponseEntityExceptionHandler extends ResponseEntityExceptionHa
         return getResponse(HttpStatus.CONFLICT, errorMessage);
     }
 
-    @ExceptionHandler(InvalidIPAddressException.class)
-    public ResponseEntity<ErrorMessage> handleInvalidIPAddressException(InvalidIPAddressException ex, WebRequest request) {
-        log.error("ResponseEntityExceptionHandler.handleInvalidIPAddressException: {}", ex.getMessage());
-        var errorMessage = ErrorMessage.builder()
-                .code(ex.getClass().getSimpleName())
-                .message(ex.getMessage())
-                .build();
-
-        return getResponse(HttpStatus.CONFLICT, errorMessage);
-    }
-
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<ErrorMessage> handleBadRequestException(BadRequestException ex, WebRequest request) {
         log.error("ResponseEntityExceptionHandler.handleBadRequestException: {}", ex.getMessage());
@@ -188,12 +173,31 @@ public class ApiResponseEntityExceptionHandler extends ResponseEntityExceptionHa
 
     @ExceptionHandler(WarningException.class)
     public ResponseEntity<ErrorMessage> handleWarningException(WarningException ex, WebRequest request) {
-        log.error("ResponseEntityExceptionHandler.handleBadRequestTraceException: {}", ex.getMessage());
+        log.error("ResponseEntityExceptionHandler.handleWarningException: {}", ex.getMessage());
         var errorMessage = ErrorMessage.builder()
                 .code(WARNING_MESSAGE)
                 .message(ex.getMessage())
                 .build();
         return getResponse(HttpStatus.BAD_REQUEST, errorMessage);
+    }
+    @ExceptionHandler(InvalidITokenException.class)
+    public ResponseEntity<ErrorMessage> handleInvalidITokenException(InvalidITokenException ex, WebRequest request) {
+        log.error("ResponseEntityExceptionHandler.InvalidITokenException: {}", ex.getMessage());
+        var errorMessage = ErrorMessage.builder()
+                .code("INVALIDITOKEN")
+                .message(ex.getMessage())
+                .build();
+        return getResponse(HttpStatus.BAD_REQUEST, errorMessage);
+    }
+
+    @ExceptionHandler(EncryptException.class)
+    public ResponseEntity<ErrorMessage> handleInvalidITokenException(EncryptException ex, WebRequest request) {
+        log.error("ResponseEntityExceptionHandler.EncryptException: {}", ex.getMessage());
+        var errorMessage = ErrorMessage.builder()
+                .code("ENCRYPT")
+                .message(ex.getMessage())
+                .build();
+        return getResponse(HttpStatus.INTERNAL_SERVER_ERROR, errorMessage);
     }
 
     @Override

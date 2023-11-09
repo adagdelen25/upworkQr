@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoggingAspect {
 
-  @Before("execution(* com.upwork.hometask.demo.services.iprule.IpRuleService.search(..))")
+  @Before("execution(* com.upwork.hometask.demo.services.qrCode.CheckInService.checkIn())")
   public void getAllAdvice(JoinPoint joinPoint){
     log.debug("service method");
   }
