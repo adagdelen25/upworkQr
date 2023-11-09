@@ -23,7 +23,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CurrentActivityService {
 
-    private static final int TIME_INTERVAL = 50;
+    private static final int TIME_INTERVAL = 30;
 
     private final ScheduleRepository scheduleRepository;
     private final StudentRepository studentRepository;
