@@ -60,6 +60,9 @@ public class CheckInService {
 
         Classroom classroom = schedule.getClassroom();
 
+        /*
+        If it is mandatory to open map information in the mobile application, QRcode image fraud can be prevented by obtaining coordinate information and calculating the distance between them.
+         */
         if (CHECK_DISTANCE) {
             double m = MapUtils.distance(classroom.getLatitude(), classroom.getLongitude(), input.getLatitude(), input.getLongitude(), "M");
             if (m > MAX_DISTANCE_IN_METER) {
