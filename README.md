@@ -81,4 +81,4 @@ Resp :
 
 ## Copyright
 
-Written By Abdurrehim Dağdelen Git Hub Address: https://github.com/adagdelen25/upwork
+Written By Abdurrehim Dağdelen Git Hub Address: https://github.com/adagdelen25/upworkQr
