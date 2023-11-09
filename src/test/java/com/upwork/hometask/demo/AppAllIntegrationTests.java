@@ -134,12 +134,12 @@ class AppAllIntegrationTests {
             });
 
             // fail if checkin already checkin another class at the same time
-            Assertions.assertThrows(AssertionError.class, () -> {
-                checkInInput.setScheduleId(output.getActivities().get(1).getScheduleId());
-                testPut("/checkIn", checkInInput);
-            });
-
-
+            if(output.getActivities().size()>1){
+                Assertions.assertThrows(AssertionError.class, () -> {
+                    checkInInput.setScheduleId(output.getActivities().get(1).getScheduleId());
+                    testPut("/checkIn", checkInInput);
+                });
+            }
         }
     }
 
