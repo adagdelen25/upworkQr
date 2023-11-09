@@ -66,6 +66,7 @@ public class CheckInService {
         if (CHECK_DISTANCE) {
             double m = MapUtils.distance(classroom.getLatitude(), classroom.getLongitude(), input.getLatitude(), input.getLongitude(), "M");
             if (m > MAX_DISTANCE_IN_METER) {
+                log.error("{} - {} Trying to scan tokens from a remote location",studentId,scheduleId);
                 throw new InvalidITokenException();
             }
         }
