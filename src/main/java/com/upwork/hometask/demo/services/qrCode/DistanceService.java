@@ -11,8 +11,14 @@ import org.springframework.stereotype.Service;
 public class DistanceService {
     private static final double MAX_DISTANCE_IN_METER = 10D;
 
+    public boolean  enable = false;
+
+    public void setEnable(boolean enabled) {
+        this.enable = enabled;
+    }
+
     public boolean enabled() {
-        return false;
+        return enable;
     }
 
     public boolean okDistance(Double lat1, Double lon1, Double lat2, Double lon2) {
